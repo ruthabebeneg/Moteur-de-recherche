@@ -1,10 +1,8 @@
 import datetime
 import os
 import tempfile
-
 import pandas as pd
 import numpy as np
-
 from Document import Document, RedditDocument, ArxivDocument
 from Author import Author
 from Corpus import Corpus, factpattern
@@ -152,7 +150,6 @@ def construire_corpus_search():
     corpus.add_doc(Document("Doc3", "C", d, "u3", "football marseille", "Reddit"))
     return corpus
 
-#fait à l'aide de l'IA
 def test_searchengine_vocab_et_tf():
     corpus = construire_corpus_search()
     moteur_recherche = SearchEngine(corpus)

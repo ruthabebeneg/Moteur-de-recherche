@@ -142,11 +142,13 @@ texteslies = " ".join(textes)
 print("Nombre de mots en moyenne :", np.mean(mots))          
 print("Nombre total de phrasesc:", np.sum(phrases))        
 
-#  (TD4) – Tests sur les auteurs
+#Tests (TD3)
+# 2.3–2.4 (TD4) – Tests sur les auteurs
 print("Auteurs dispos")
 for nom, auteur in Corpus_football.authors.items():
     print(auteur) 
 
+# 2.4 (TD4) stats pour le premier auteur
 liste_auteurs = list(Corpus_football.authors.keys())
 if liste_auteurs:
     nom_test = liste_auteurs[0]

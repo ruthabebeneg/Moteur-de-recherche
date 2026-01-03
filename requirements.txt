@@ -3,5 +3,10 @@ pandas
 numpy
 xmltodict
 certifi
-scipy
 pytest
+scipy
+tqdm
+streamlit
+notebook
+ipykernel
+ipywidgets

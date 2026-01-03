@@ -135,4 +135,3 @@ class SearchEngine:
                 })
 
         return pd.DataFrame(res)
-
