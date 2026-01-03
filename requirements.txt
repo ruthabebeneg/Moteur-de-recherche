@@ -3,4 +3,5 @@ pandas
 numpy
 xmltodict
 certifi
+scipy
 pytest

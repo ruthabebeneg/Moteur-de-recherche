@@ -10,6 +10,8 @@ import numpy as np
 from Document import Document, RedditDocument, ArxivDocument  
 from Author import Author                                     
 from Corpus import Corpus       
+from SearchEngine import SearchEngine                               
+
 
 # 3.1 (TD4) – Création du corpus
 Corpus_football = Corpus("football")
@@ -139,10 +141,22 @@ texteslies = " ".join(textes)
 # print(texteslies)                                            
 print("Nombre de mots en moyenne :", np.mean(mots))          
 print("Nombre total de phrasesc:", np.sum(phrases))        
- 
+
+#  (TD4) – Tests sur les auteurs
+print("Auteurs dispos")
+for nom, auteur in Corpus_football.authors.items():
+    print(auteur) 
+
+liste_auteurs = list(Corpus_football.authors.keys())
+if liste_auteurs:
+    nom_test = liste_auteurs[0]
+    auteur_test = Corpus_football.authors[nom_test]
+    print("=== Détails pour l'auteur :", nom_test, "===")
+    print("Nb de documents :", auteur_test.nb_docs)
+    print("Nb moyen de mots :", auteur_test.moyenne_mots())
 
 
-# (TD4) – Tests sur le corpus
+# Tests (TD4) 
 print("Info corpus")
 print(Corpus_football)
 
@@ -187,3 +201,18 @@ print("Affichage du doc :", reddit_doc)
 print("Type du document :", reddit_doc.getType())
 print("Affichage du doc :", arxiv_doc)
 print("Type du document :", arxiv_doc.getType())
+
+
+# Tests (TD6)
+print("Stats (TD6)")
+Corpus_football.stats(12)  
+
+# Tests (TD7):
+moteur = SearchEngine(Corpus_football)
+print("Recheche du mot won :")
+resultats = moteur.search("won", 5)
+print(resultats[["score", "titre", "auteur"]])
+
+print("Recheche du mot match :")
+resultats_match = moteur.search("match", 15)
+print(resultats_match[["score", "titre", "auteur"]])
