@@ -50,23 +50,28 @@ if mode == "Recherche":
     nbdocs = st.slider("Nombre de documents à afficher", 1, 50, 10)
 
     if st.button("Rechercher") and query:
-        df_res = engine.search(query, n=nbdocs) 
-
-        if auteur != "Tous":
-            df_res = df_res[df_res["auteur"] == auteur]
-        if source != "Tous":
-            if source == "Reddit":
-                df_res = df_res[df_res["url"].str.contains("reddit", case=False, na=False)]
-            elif source == "Arxiv":
-                df_res = df_res[df_res["url"].str.contains("arxiv.org", case=False, na=False)]
-
-        df_res = df_res[(df_res["date"] >= start) & (df_res["date"] <= end)]
-
+        df_res = engine.search(query, n=nbdocs)
         st.subheader("Résultats")
-        if isinstance(df_res, pd.DataFrame) and not df_res.empty:
-            st.dataframe(df_res[["score", "titre", "auteur", "date", "url"]])
-        else:
+        if not isinstance(df_res, pd.DataFrame) or df_res.empty:
             st.info("Aucun document trouvé, changez vos filtres ou vos mots-clés.")
+        else:
+            cols = df_res.columns
+
+            if auteur != "Tous" and "auteur" in cols:
+                df_res = df_res[df_res["auteur"] == auteur]
+
+            if source != "Tous" and "url" in cols:
+                if source == "Reddit":
+                    df_res = df_res[df_res["url"].str.contains("reddit", case=False, na=False)]
+                elif source == "Arxiv":
+                    df_res = df_res[df_res["url"].str.contains("arxiv.org", case=False, na=False)]
+
+            if "date" in cols:
+                df_res = df_res[(df_res["date"] >= start) & (df_res["date"] <= end)]
+            if not df_res.empty:
+                st.dataframe(df_res[["score", "titre", "auteur", "date", "url"]])
+            else:
+                st.info("Aucun document trouvé, changez vos filtres ou vos mots-clés.")
 
 
 
